@@ -1,4 +1,4 @@
-module github.com/yoyoliyang/gomod/getPubIP
+module github.com/yoyoliyang/gomod/getpubip
 
 go 1.15
 
