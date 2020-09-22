@@ -1,4 +1,4 @@
-package getPubIP
+package getpubip
 
 import (
 	"bufio"
@@ -40,10 +40,11 @@ func GetIP() (ip net.IP, err error) {
 		ipArr := ipf.FindAllString(scanner.Text(), -1)
 		if len(ipArr) == 1 {
 			adr = ipArr[0]
-		} else {
-			fmt.Fprintln(os.Stdout, "not found IP in ip138.com")
-			return ip, nil
 		}
+	}
+	if adr == "" {
+		fmt.Fprintln(os.Stdout, "not found IP in ip138.com")
+		return ip, err
 	}
 
 	return net.ParseIP(adr), nil
