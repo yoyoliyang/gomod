@@ -3,18 +3,11 @@ package getpubip
 import (
 	"bufio"
 	"fmt"
-	"log"
 	"net"
 	"net/http"
 	"os"
 	"regexp"
 )
-
-func checkErr(e error) {
-	if e != nil {
-		fmt.Fprintln(os.Stdout, e)
-	}
-}
 
 // GetIP 获取公网ip模块
 func GetIP() (ip net.IP, err error) {
@@ -22,14 +15,17 @@ func GetIP() (ip net.IP, err error) {
 
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", url, nil)
-	checkErr(err)
+	if err != nil {
+		fmt.Fprintln(os.Stdout, "error for new request")
+		return ip, err
+	}
 
 	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36")
 	req.Header.Set("Accept-Charset", "gb2312")
 	resp, err := client.Do(req)
-	checkErr(err)
-	if resp.StatusCode != 200 {
-		log.Fatalln("error request")
+	if err != nil {
+		fmt.Fprintln(os.Stdout, "error for request")
+		return ip, err
 	}
 
 	scanner := bufio.NewScanner(resp.Body)
