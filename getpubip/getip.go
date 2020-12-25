@@ -11,7 +11,7 @@ import (
 
 // GetIP 获取公网ip模块
 func GetIP() (ip net.IP, err error) {
-	url := "https://202020.ip138.com/"
+	url := "https://ifconfig.me/"
 
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", url, nil)
